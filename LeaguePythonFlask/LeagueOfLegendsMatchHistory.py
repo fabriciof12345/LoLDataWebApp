@@ -35,10 +35,10 @@ def displayMatchHistory(summonerName):
     print("the displayMatchHistoryParticipants function took", time.time() - start_time, "seconds to run")
     return lastMatches, kdaTracker
 
-
+'''
 def mhFast(summonerName):
     session = requests.session()
-
+'''
 
 #print(retrieveMatchHistory(summonerName))
 
