@@ -1,15 +1,62 @@
 {% extends "base.html" %}
 {% block title %}Summoner Page{% endblock %}
 
-{% block content %}
-{% if user %}
-<h1>
-    {{ user }}
-</h1>
-<h2>
-    {{ rank }}
+<div class="summonerPage">
+    {% block content %}
+    <div id="playerStats">
+        {% if user %}
+        <h1>
+            {{ user }}
+        </h1>
+        <h2>
+            {{ rank }}
+            <br>
+            {{ winloss }}
+        </h2>
+        {% endif %}
+    </div>
+
+    {% for key in matchHistory %}
+    <table>
+        <li>
+            {% if key.0 == True or key.1 == user or key.2 == user or key.3 == user or key.4 == user or key.5 == user%}
+            {{user}} Defeat
+            {% else %}
+            {{user}} Victory
+            {% endif %}
+        </li>
+        <tr>
+            <th id="bSide">
+                Blue Side
+            </th>
+            <th id="rSide">
+                Red Side
+            </th>
+        </tr>
+        <tr>
+            <td>{{key.1}}<br>{{kda.0}}</td>
+            <td>{{key.6}}<br>{{kda.5}}</td>
+        </tr>
+        <tr>
+            <td>{{key.2}}<br>{{kda.1}}</td>
+            <td>{{key.7}}<br>{{kda.6}}</td>
+        </tr>
+        <tr>
+            <td>{{key.3}}<br>{{kda.2}}</td>
+            <td>{{key.8}}<br>{{kda.7}}</td>
+        </tr>
+        <tr>
+            <td>{{key.4}}<br>{{kda.3}}</td>
+            <td>{{key.9}}<br>{{kda.8}}</td>
+        </tr>
+        <tr>
+            <td>{{key.5}}<br>{{kda.4}}</td>
+            <td>{{key.10}}<br>{{kda.9}}</td>
+        </tr>
+    </table>
     <br>
-    {{ winloss }}
-</h2>
-{% endif %}
-{% endblock %}
+    {% endfor %}
+
+
+    {% endblock %}
+</div>

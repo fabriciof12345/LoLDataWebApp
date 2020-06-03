@@ -1,22 +1,22 @@
 import requests
 
 region = "NA1"
-APIKey = "RGAPI-dc6019f9-3c76-4b11-bb59-a1d11978716b"
+APIKey = "RGAPI-afc00d0b-be3f-4e46-bba6-2b26e5fbcf11"
 
-def getSummonerInformation(region, summonerName, APIKey):
+def getSummonerInformation(summonerName):
     jsonFileURL = "https://" + region + ".api.riotgames.com/lol/summoner/v4/summoners/by-name/" + summonerName + "?api_key=" + APIKey
     response = requests.get(jsonFileURL)
     return response.json()
 
-def getSummonerRankedData(region, summonerID, APIKey):
+def getSummonerRankedData(summonerID):
     jsonFileURL = "https://" + region + ".api.riotgames.com/lol/league/v4/entries/by-summoner/" + summonerID + "?api_key=" + APIKey
     response = requests.get(jsonFileURL)
     return response.json()
 
 def mainFunction(summonerName):
-    retrievedJson = getSummonerInformation(region, summonerName, APIKey)
+    retrievedJson = getSummonerInformation(summonerName)
     summonerID = str(retrievedJson['id'])
-    retrievedJsonRank =  getSummonerRankedData(region, summonerID, APIKey)
+    retrievedJsonRank =  getSummonerRankedData(summonerID)
 
     x = len(retrievedJsonRank)
     for n in range(0,x):
@@ -32,4 +32,3 @@ def mainFunction(summonerName):
     losses = retrievedJsonRank[index]['losses']  
     return {'tier': tier, 'rank': rank, 'lp': lp, 'wins': wins, 'losses': losses}
 
-mainFunction("fabricio12345")

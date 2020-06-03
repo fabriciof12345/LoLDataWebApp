@@ -4,11 +4,9 @@ start_time = time.time()
 #print("My program took", time.time() - start_time, "to run")
 
 region = "NA1"
-APIKey = "RGAPI-dc6019f9-3c76-4b11-bb59-a1d11978716b"
-summonerName = "Centillion"
+APIKey = "RGAPI-afc00d0b-be3f-4e46-bba6-2b26e5fbcf11"
 
-
-def retrieveMatchHistory(region, APIKey):
+def retrieveMatchHistory(summonerName):
     session = requests.session()
     encryptedID = session.get(f'https://{region}.api.riotgames.com/lol/summoner/v4/summoners/by-name/{summonerName}?api_key={APIKey}').json()['accountId']
     response = session.get(f'https://{region}.api.riotgames.com/lol/match/v4/matchlists/by-account/{encryptedID}?api_key={APIKey}')
@@ -16,25 +14,32 @@ def retrieveMatchHistory(region, APIKey):
     totalMatches = []
     for x in range(lengthTotalMatchesFound):
         totalMatches.append(response.json()['matches'][x]['gameId'])
-    print("My program took", time.time() - start_time, "to run")
     return totalMatches
 
 
-def viewMatchHistoryParticipants(region,APIKey):
+def displayMatchHistory(summonerName):
     session = requests.session()
-    totalMatches = retrieveMatchHistory(region, APIKey)
-    lastMatches = []
-    for matchID in range(0,21):
+    totalMatches = retrieveMatchHistory(summonerName)
+    lastMatches = []      
+    kdaTracker = []
+    for matchID in range(0,10):
         jsonFileURL = f'https://{region}.api.riotgames.com/lol/match/v4/matches/{str(totalMatches[matchID])}?api_key={APIKey}'
         response = session.get(jsonFileURL).json()['participantIdentities']
-        allPlayers = {}
+        allPlayers = [session.get(jsonFileURL).json()['teams'][0]['win']]
+        kda = session.get(jsonFileURL).json()['participants']
         for participantID in range(10):
-            playerIdentity = response[participantID]['player']['summonerName']
-            allPlayers.update({participantID: playerIdentity})
+            allPlayers.append(response[participantID]['player']['summonerName'])
+            killDeathAssist = f"{kda[participantID]['stats']['kills']}/{kda[participantID]['stats']['deaths']}/{kda[participantID]['stats']['assists']}"
+            kdaTracker.append(killDeathAssist)
         lastMatches.append(allPlayers)
-    print(lastMatches)
-    print("My program took", time.time() - start_time, "to run")
-    return lastMatches
+    print("the displayMatchHistoryParticipants function took", time.time() - start_time, "seconds to run")
+    return lastMatches, kdaTracker
 
 
-viewMatchHistoryParticipants(region, APIKey)
+def mhFast(summonerName):
+    session = requests.session()
+
+
+#print(retrieveMatchHistory(summonerName))
+
+print(displayMatchHistory("fabricio12345"))

@@ -1,0 +1,58 @@
+body {
+  background: #55626b;
+}
+
+.summonerPage {
+  margin: auto;
+}
+
+h1 {
+  font-style: bold, italic;
+  color: white;
+}
+
+h2 {
+  color: white;
+}
+
+li {
+  color: white;
+}
+
+nav {
+  margin-bottom: 30px;
+}
+
+table {
+  border: 3px solid black;
+  table-layout: fixed;
+  width: 350px;
+}
+
+th,
+td {
+  border: 3px solid black;
+  padding: 5px;
+  text-align: center;
+  font: 12px Courier;
+  color: white;
+}
+
+#rSide {
+  background-color: lightcoral;
+}
+
+#bSide {
+  background-color: dodgerblue;
+}
+
+#playerStats {
+  border: 2px solid black;
+  box-shadow: 0 1px gray;
+  border-radius: 1px;
+  display: block;
+  width: 400px;
+  padding: 10px;
+  text-align: center;
+  margin: auto;
+}
